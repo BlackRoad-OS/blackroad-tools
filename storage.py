@@ -44,41 +44,23 @@ def write(path: Union[str, Path], content: Union[Mapping[str, Any], str]) -> Non
     ``*.jsonl`` files are appended to, while all other files are overwritten.
     Mapping content is serialised to JSON; string content is written verbatim.
     """
+    path = _rewrite(str(path))
+    _apply_chaos()
 
     target = Path(path)
     _ensure_parent(target)
     mode = "a" if target.suffix == ".jsonl" else "w"
     payload = json.dumps(content) if isinstance(content, Mapping) else str(content)
     with target.open(mode, encoding="utf-8") as handle:
-def write(path: str, content: Union[dict, str]) -> None:
-    path = _rewrite(path)
-    _apply_chaos()
-import json
-import os
-from pathlib import Path
-from typing import Union
-
-
-def write(path: str, content: Union[dict, str]) -> None:
-    p = Path(path)
-    os.makedirs(p.parent, exist_ok=True)
-    mode = "a" if p.suffix == ".jsonl" else "w"
-    text = json.dumps(content) if isinstance(content, dict) else str(content)
-    with open(p, mode, encoding="utf-8") as fh:
-        if mode == "a":
-            handle.write(payload + "\n")
-        else:
-            handle.write(payload)
+        handle.write(payload)
 
 
 def read(path: Union[str, Path]) -> str:
     """Read text from *path*, returning an empty string if it does not exist."""
+    path = _rewrite(str(path))
+    _apply_chaos()
 
     target = Path(path)
-def read(path: str) -> str:
-    path = _rewrite(path)
-    _apply_chaos()
-    p = Path(path)
     try:
         return target.read_text(encoding="utf-8")
     except FileNotFoundError:
