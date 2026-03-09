@@ -1,4 +1,4 @@
-"""Lightweight Codex deployment pipeline helpers.
+"""Lightweight BlackRoad OS deployment pipeline helpers.
 
 The original module accumulated several overlapping implementations during
 merges.  The current version keeps a compact, well-defined surface that the
@@ -122,7 +122,7 @@ def validate_services() -> Dict[str, str]:
 # CLI
 
 def _build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(description="BlackRoad Codex pipeline")
+    parser = argparse.ArgumentParser(description="BlackRoad BlackRoad OS pipeline")
     parser.add_argument(
         "--dry-run",
         action="store_true",
