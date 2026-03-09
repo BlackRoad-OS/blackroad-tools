@@ -4,7 +4,7 @@ pytest==9.0.2
 pydantic==2.7.2
 pytest-rerunfailures==16.1
 pytest-timeout==2.2.0
-ruff==0.15.1
+ruff==0.15.5
 black==24.4.2
 bandit==1.9.4
 detect-secrets==1.4.1
