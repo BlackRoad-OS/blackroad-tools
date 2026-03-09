@@ -151,8 +151,8 @@ def resolve_top_resume_bullet_records(
 
     if policy is None:
         policy = resolve_resume_policy(claims)
-        "prompt": RESUME_VERIFICATION_PROMPT.strip(),
-    }
+
+    return []
 
 
 def resolve_top_resume_bullets(claims: Dict[str, Any]) -> List[str]:
@@ -383,7 +383,6 @@ def resolve_interview_validation(claims: Dict[str, Any]) -> List[Dict[str, Any]]
         try:
             related_bullet = bullets[related_id]
         except (IndexError, TypeError):
-        except IndexError:
             raise SystemExit(
                 f"interview_validation entry {index} references bullet {related_id}, which is out of range."
             ) from None

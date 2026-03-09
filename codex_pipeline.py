@@ -165,11 +165,6 @@ def _run_command(command: str, *, dry_run: bool) -> None:
     else:  # pragma: no cover - parser enforces valid choices
         raise ValueError(f"Unknown command: {command}")
 
-        "--dry-run", action="store_true", help="Simulate actions without executing commands"
-    )
-    parser.add_argument(
-        "--skip-validate", action="store_true", help="Skip service health validation"
-    )
 
 def main(argv: list[str] | None = None) -> int:
     """CLI entry point used by tests and manual runs."""
