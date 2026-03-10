@@ -1,4 +1,7 @@
-# BlackRoad Tools API
+# BlackRoad Tools
+
+[![CI](https://github.com/BlackRoad-OS/blackroad-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/BlackRoad-OS/blackroad-tools/actions/workflows/ci.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/)
 
 > **© BlackRoad OS, Inc. — Proprietary. All rights reserved.**
 > Unauthorized use, reproduction, or distribution is strictly prohibited.
