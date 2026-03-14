@@ -1,28 +1,14 @@
 name = "blackroad-tools"
-main = "src/index.ts"
-compatibility_date = "2024-01-01"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+account_id = "848cf0b18d51e0170e0d1537aec3505a"
 
 [vars]
+REPO_NAME = "blackroad-tools"
+ORG_NAME = "BlackRoad-OS"
 ENVIRONMENT = "production"
 
-[[d1_databases]]
-binding = "DB"
-database_name = "blackroad-continuity"
-database_id = "f0721506-cb52-41ee-b587-38f7b42b97d9"
-
-[[kv_namespaces]]
-binding = "TOOLS_KV"
-id = "f7b2b20d1e1447b2917b781e6ab7e45c"
-
-# Contributor API key store – create with: wrangler kv:namespace create API_KEYS_KV
-# then replace REPLACE_WITH_API_KEYS_KV_NAMESPACE_ID below with the returned ID (required before first deploy)
-[[kv_namespaces]]
-binding = "API_KEYS_KV"
-id = "REPLACE_WITH_API_KEYS_KV_NAMESPACE_ID"
-
-# Stripe webhook secret – set with: wrangler secret put STRIPE_WEBHOOK_SECRET
-# [secrets]
-# STRIPE_WEBHOOK_SECRET
-
-[observability]
-enabled = true
+# Add KV, D1, R2 bindings as needed
+# [[kv_namespaces]]
+# binding = "CACHE"
+# id = "YOUR_KV_ID"

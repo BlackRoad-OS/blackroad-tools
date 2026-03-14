@@ -119,6 +119,13 @@ Example
     python tools/projective/depth_solver.py --ZA 0 --ZB 1 \
       --s 0,5.0,8.25 --pretty
 """
+from __future__ import annotations
+
+import argparse
+import json
+import math
+from dataclasses import dataclass
+from typing import Iterable, Optional, Sequence, Tuple
 
 
 @dataclass(frozen=True)

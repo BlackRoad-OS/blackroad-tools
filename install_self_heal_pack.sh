@@ -168,7 +168,7 @@ prompts:
       - any-glob-to-any-file:
           - 'prompts/**'
           - 'prompts/llm/**'
-          - 'blackroad os/**'
+          - 'codex/**'
 
 templates:
   - changed-files:
@@ -230,7 +230,7 @@ cat > .github/labels.yml <<'EOF'
 
 - name: prompts
   color: "fbca04"
-  description: "LLM prompts & BlackRoad OS"
+  description: "LLM prompts & Codex"
 
 - name: templates
   color: "c2e0c6"

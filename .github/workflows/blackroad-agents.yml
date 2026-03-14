@@ -15,7 +15,7 @@ jobs:
   agent-response:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+      - uses: actions/checkout@v3
       
       - name: Check for @blackroad-agents mention
         id: check_mention
@@ -31,7 +31,7 @@ jobs:
           REQUEST=$(echo "${{ github.event.comment.body || github.event.issue.body }}" | grep -A 10 "@blackroad-agents")
           
           # Call agent API (multiple providers for redundancy)
-          RESPONSE=$(curl -s -X POST https://blackroad-agents.amundsonalexa.workers.dev/agent \
+          RESPONSE=$(curl -s -X POST https://blackroad-agents.blackroad.workers.dev/agent \
             -H "Content-Type: application/json" \
             -d "{
               \"request\": \"$REQUEST\",
@@ -61,7 +61,7 @@ jobs:
             echo "Analyzing $file with AI..."
             
             # Send to agent for auto-fix
-            curl -X POST https://blackroad-agents.amundsonalexa.workers.dev/autofix \
+            curl -X POST https://blackroad-agents.blackroad.workers.dev/autofix \
               -H "Content-Type: application/json" \
               -d "{\"file\":\"$file\",\"repo\":\"${{ github.repository }}\"}" &
           done

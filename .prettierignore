@@ -1,9 +1,0 @@
-node_modules
-dist
-.wrangler
-__pycache__
-*.py
-*.sh
-*.md
-*.json
-*.toml

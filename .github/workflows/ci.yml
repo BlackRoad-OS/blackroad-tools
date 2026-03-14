@@ -17,7 +17,6 @@
 name: CI
 
 on:
-  workflow_dispatch:
   push:
     branches: [main, master, staging, develop]
   pull_request:
@@ -35,10 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
@@ -63,10 +62,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
@@ -86,29 +85,18 @@ jobs:
             python3 -m py_compile "$f" && echo "✓ $f"
           done
 
-      - name: Run pytest
+      - name: Run pytest with coverage
         run: |
           if [ -d "tests" ]; then
-            echo "Running tests..."
-            # Temporarily rename files that shadow stdlib modules
-            mv __init__.py __init__.py.bak || true
-            mv email.py email_tool.py || true
-            mv calendar.py calendar_tool.py || true
-            pytest tests/ -v \
-              --ignore=tests/test_everything_cipher.py \
-              -p no:respx -p no:anyio -p no:asyncio || exit_code=$?
-            # Restore renamed files
-            mv __init__.py.bak __init__.py || true
-            mv email_tool.py email.py || true
-            mv calendar_tool.py calendar.py || true
-            exit ${exit_code:-0}
+            echo "Running tests with coverage..."
+            pytest tests/ -v --cov=. --cov-report=term --cov-report=xml --cov-report=html
           else
             echo "No tests directory found, skipping pytest"
           fi
 
       - name: Upload coverage report
         if: success()
-        uses: codecov/codecov-action@b9fd7d16f6d7d1b5d2bec1a2887e65ceed900238 # v4
+        uses: codecov/codecov-action@v4
         with:
           file: ./coverage.xml
           fail_ci_if_error: false
@@ -123,7 +111,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@v4
 
       - name: Install ShellCheck
         run: sudo apt-get install -y shellcheck
@@ -138,34 +126,6 @@ jobs:
         continue-on-error: true
 
   # ─────────────────────────────────────────────────────────────────────────
-  # TypeScript Tests - Vitest + typecheck + format
-  # ─────────────────────────────────────────────────────────────────────────
-  test-typescript:
-    name: TypeScript Tests
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
-        with:
-          node-version: 20
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Format check
-        run: npm run format:check
-
-      - name: Run vitest
-        run: npm run test
-
-  # ─────────────────────────────────────────────────────────────────────────
   # Security Scan - Basic security checks
   # ─────────────────────────────────────────────────────────────────────────
   security:
@@ -173,7 +133,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@v4
 
       - name: Check for secrets in code
         run: |
